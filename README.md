@@ -8,3 +8,8 @@
 
 # &#10004; 0902
 * express + typescript 설정
+
+# &#10004; 0904
+* db 생성
+* typeorm 설정
+* entity 설계
