@@ -13,3 +13,4 @@
 * db 생성
 * typeorm 설정
 * entity 설계
+* Board REST API 완료
