@@ -14,3 +14,6 @@
 * typeorm 설정
 * entity 설계
 * Board REST API 완료
+
+# &#10004; 0905
+* image upload
