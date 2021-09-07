@@ -2,6 +2,7 @@ import { Router } from "express";
 import { BoardController } from "../controller/BoardController";
 import { CommentController } from "../controller/CommentController";
 import image from './image';
+import admin from './admin';
 
 const routes = Router();
 
@@ -13,6 +14,7 @@ routes.get('/board/count', BoardController.countBoard);
 routes.get('/board/:id', BoardController.findOneBoard);
 
 routes.use('/image', image);
+routes.use('/admin', admin);
 
 routes.post('/comment', CommentController.addComment);
 routes.get('/comments', CommentController.findAllComment);

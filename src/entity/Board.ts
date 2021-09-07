@@ -1,5 +1,6 @@
-import {Column, CreateDateColumn, Entity, OneToMany, PrimaryGeneratedColumn, UpdateDateColumn} from 'typeorm';
+import {Column, CreateDateColumn, Entity, ManyToOne, OneToMany, PrimaryGeneratedColumn, UpdateDateColumn} from 'typeorm';
 import { Comment } from './Comment';
+import { User } from './User';
 
 @Entity()
 export class Board {
@@ -20,4 +21,7 @@ export class Board {
 
   @OneToMany(type => Comment, comment => comment.board)
   comments: Comment[];
+
+  @ManyToOne(type => User, user => user.boards)
+  user: User;
 }

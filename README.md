@@ -18,3 +18,6 @@
 # &#10004; 0905
 * image upload
 * Comment REST API 완료
+
+# &#10004; 0907
+* 인증과 권한 설계
