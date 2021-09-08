@@ -3,6 +3,7 @@ import { BoardController } from "../controller/BoardController";
 import { CommentController } from "../controller/CommentController";
 import image from './image';
 import admin from './admin';
+import auth from './auth';
 
 const routes = Router();
 
@@ -15,6 +16,7 @@ routes.get('/board/:id', BoardController.findOneBoard);
 
 routes.use('/image', image);
 routes.use('/admin', admin);
+routes.use('/auth', auth);
 
 routes.post('/comment', CommentController.addComment);
 routes.get('/comments', CommentController.findAllComment);
