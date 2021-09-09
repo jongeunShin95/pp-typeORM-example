@@ -51,6 +51,8 @@ export class AuthController {
             user.roles = res;
         }
 
+        console.log(user);
+
         const result = await getConnection().getRepository(User).save(user);
 
         res.send(result);
