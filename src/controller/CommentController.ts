@@ -2,16 +2,19 @@ import { getConnection } from "typeorm";
 import { resourceLimits } from "worker_threads";
 import { Board } from "../entity/Board";
 import { Comment } from "../entity/Comment";
+import { User } from "../entity/User";
 
 export class CommentController {
     static addComment = async (req, res) => {
-        const { board_id, content } = req.body;
+        const { board_id, content, user_id } = req.body;
 
         const board = await getConnection().getRepository(Board).findOne({ id: board_id });
+        const user = await getConnection().getRepository(User).findOne({ id: user_id });
 
         const comment = new Comment();
         comment.content = content;
         comment.board = board;
+        comment.user = user;
         await getConnection().getRepository(Comment).save(comment);
 
         res.send(comment);
@@ -20,16 +23,25 @@ export class CommentController {
     static findAllComment = async (req, res) => {
         const { board_id } = req.query;
 
-        const board = await getConnection().getRepository(Board)
-            .findOne({ relations: ['comments'], where: { id: board_id }, order: { id: 'DESC' }});
+        const result = await getConnection().getRepository(Comment).createQueryBuilder('comment')
+            .innerJoinAndSelect('comment.board', 'board')
+            .innerJoinAndSelect('comment.user', 'user')
+            .where('board.id=:board_id', { board_id })
+            .getMany();
 
-        res.send(board.comments);
+        console.log(result);
+        res.send(result);
+
+        // const board = await getConnection().getRepository(Board)
+        //     .findOne({ relations: ['comments'], where: { id: board_id }, order: { id: 'DESC' }});
+
+        // res.send(board.comments);
     }
 
     static findOneComment = async (req, res) => {
         const { id } = req.query;
 
-        const comment = await getConnection().getRepository(Comment).findOne({ id: id });
+        const comment = await getConnection().getRepository(Comment).findOne({ id });
         console.log(comment);
         res.send(comment);
     }
